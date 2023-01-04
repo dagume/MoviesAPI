@@ -5,6 +5,7 @@ import * as Joi from 'joi';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { enviroments } from './enviroments';
+import { DatabaseModule } from './database/database.module';
 import config from './config';
 
 @Module({
@@ -17,6 +18,7 @@ import config from './config';
         API_KEY: Joi.number().required(),
       }), //Validacion de schema
     }),
+    DatabaseModule,
   ],
   controllers: [AppController],
   providers: [AppService],
