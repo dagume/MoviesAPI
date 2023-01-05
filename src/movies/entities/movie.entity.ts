@@ -3,6 +3,8 @@ import { Document } from 'mongoose';
 
 @Schema()
 export class Movie extends Document {
+  @Prop()
+  id: string;
   @Prop({ required: true })
   movieIMDBId: string;
   @Prop({ required: true })

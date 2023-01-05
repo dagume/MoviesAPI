@@ -1,29 +1,35 @@
 import { IsString, IsNotEmpty } from 'class-validator';
-import { PartialType } from '@nestjs/mapped-types';
+import { ApiProperty, PartialType } from '@nestjs/swagger';
 
 export class CreateMovieDto {
   @IsString()
   @IsNotEmpty()
+  @ApiProperty()
   readonly movieIMDBId: string;
 
   @IsString()
   @IsNotEmpty()
+  @ApiProperty()
   readonly languaje: string;
 
   @IsString()
   @IsNotEmpty()
+  @ApiProperty()
   readonly genres: string;
 
   @IsString()
   @IsNotEmpty()
+  @ApiProperty()
   readonly originalLanguage: string;
 
   @IsString()
   @IsNotEmpty()
+  @ApiProperty()
   readonly title: string;
 
   @IsString()
   @IsNotEmpty()
+  @ApiProperty()
   readonly overview: string;
 }
 
