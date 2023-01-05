@@ -8,9 +8,4 @@ export class AppService {
   getHello(): string {
     return 'Hello World!';
   }
-  getMovies() {
-    const movieColletion = this.database.collection('movies');
-    return movieColletion.find().toArray();
-    // return movies;
-  }
 }

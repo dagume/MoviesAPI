@@ -9,8 +9,4 @@ export class AppController {
   getHello(): string {
     return this.appService.getHello();
   }
-  @Get('movies')
-  geMovies() {
-    return this.appService.getMovies();
-  }
 }
