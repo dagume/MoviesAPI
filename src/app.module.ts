@@ -7,6 +7,7 @@ import { AppService } from './app.service';
 import { enviroments } from './enviroments';
 import { DatabaseModule } from './database/database.module';
 import { MoviesModule } from './movies/movies.module';
+import { UsersModule } from './users/users.module';
 import config from './config';
 
 @Module({
@@ -17,11 +18,18 @@ import config from './config';
       load: [config], // Configuracion de tipado
       isGlobal: true, //Modulo de configuracion global
       validationSchema: Joi.object({
-        API_KEY: Joi.number().required(),
+        API_KEY: Joi.string().required(),
+        MONGO_INITDB_ROOT_USERNAME: Joi.string().required(),
+        MONGO_INITDB_ROOT_PASSWORD: Joi.string().required(),
+        MONGO_DB: Joi.string().required(),
+        MONGO_PORT: Joi.number().required(),
+        MONGO_HOST: Joi.string().required(),
+        MONGO_CONNECTION: Joi.string().required(),
       }), //Validacion de schema
     }),
     DatabaseModule, //Base de datos
     MoviesModule, // Peliculas
+    UsersModule, //usuarios
   ],
   // controladores
   controllers: [AppController],

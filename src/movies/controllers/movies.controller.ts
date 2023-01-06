@@ -8,8 +8,14 @@ import {
   Param,
   Post,
   Put,
+  Query,
 } from '@nestjs/common';
-import { CreateMovieDto, UpdateMovieDto } from '../dtos/movies.dtos';
+import {
+  CreateMovieDto,
+  UpdateMovieDto,
+  FilterMovieDto,
+  FilterMovieSearchDto,
+} from '../dtos/movies.dtos';
 import { MoviesService } from '../services/movies.service';
 import { MongoIdPipe } from '../../common/mongo-id/mongo-id.pipe';
 
@@ -17,18 +23,18 @@ import { MongoIdPipe } from '../../common/mongo-id/mongo-id.pipe';
 export class MoviesController {
   constructor(private moviesService: MoviesService) {}
 
-  // listar todo
+  // Get Popular movies
   @Get()
-  findAll() {
-    // ******* Listar peliculas consumiendo API
-    return this.moviesService.findAll();
+  @HttpCode(HttpStatus.ACCEPTED)
+  findPopularMovies(@Query() params: FilterMovieDto) {
+    return this.moviesService.getPopularMovies(params);
   }
 
-  // Listar por id
-  @Get(':id')
+  // Buscar por titulo
+  @Get('search')
   @HttpCode(HttpStatus.ACCEPTED)
-  findOne(@Param('id', MongoIdPipe) id: string) {
-    return this.moviesService.findOne(id);
+  findOne(@Query() params: FilterMovieSearchDto) {
+    return this.moviesService.findMovieByTitle(params);
   }
 
   // Crear

@@ -1,4 +1,10 @@
-import { IsString, IsNotEmpty } from 'class-validator';
+import {
+  IsString,
+  IsNotEmpty,
+  IsOptional,
+  Max,
+  IsPositive,
+} from 'class-validator';
 import { ApiProperty, PartialType } from '@nestjs/swagger';
 
 export class CreateMovieDto {
@@ -34,3 +40,20 @@ export class CreateMovieDto {
 }
 
 export class UpdateMovieDto extends PartialType(CreateMovieDto) {}
+
+export class FilterMovieDto {
+  @IsPositive()
+  @IsOptional()
+  @Max(500)
+  @ApiProperty()
+  page: number;
+}
+export class FilterMovieSearchDto {
+  @IsString()
+  @IsNotEmpty()
+  title: string;
+
+  @IsString()
+  @IsOptional()
+  language: string;
+}

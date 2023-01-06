@@ -6,6 +6,8 @@ export class Movie extends Document {
   @Prop()
   id: string;
   @Prop({ required: true })
+  poster_path: string;
+  @Prop({ required: true })
   movieIMDBId: string;
   @Prop({ required: true })
   languaje: string;

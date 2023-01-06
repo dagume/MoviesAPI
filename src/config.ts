@@ -3,6 +3,8 @@ import { registerAs } from '@nestjs/config';
 export default registerAs('config', () => {
   return {
     apikey: process.env.API_KEY,
+    urlApi: process.env.URL_API,
+
     mongo: {
       username: process.env.MONGO_INITDB_ROOT_USERNAME,
       password: process.env.MONGO_INITDB_ROOT_PASSWORD,
