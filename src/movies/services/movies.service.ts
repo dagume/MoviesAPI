@@ -40,8 +40,8 @@ export class MoviesService {
             `${this.configService.urlApi}/movie/popular?api_key=${this.configService.apikey}&page=${page}`,
           )
           .pipe(
-            catchError(() => {
-              throw new ForbiddenException('API not available');
+            catchError((e) => {
+              throw new ForbiddenException(e.message);
             }),
           ),
       );
@@ -53,8 +53,8 @@ export class MoviesService {
           `${this.configService.urlApi}/movie/popular?api_key=${this.configService.apikey}`,
         )
         .pipe(
-          catchError(() => {
-            throw new ForbiddenException('API not available');
+          catchError((e) => {
+            throw new ForbiddenException(e.message);
           }),
         ),
     );
@@ -72,8 +72,7 @@ export class MoviesService {
           )
           .pipe(
             catchError((e) => {
-              console.log(e);
-              throw new ForbiddenException('API not available');
+              throw new ForbiddenException(e.message);
             }),
           ),
       );
@@ -82,11 +81,31 @@ export class MoviesService {
     throw new NotFoundException(`Movie not found`);
   }
 
-  // Listar todas las movies
-  findAll() {
-    return this.movieModel.find().exec();
+  // Buscar movie por id
+  async findMovieById(movie_id) {
+    const { data } = await firstValueFrom(
+      this.httpService
+        .get(
+          `${this.configService.urlApi}/movie/${movie_id}?api_key=${this.configService.apikey}`,
+        )
+        .pipe(
+          catchError((e) => {
+            throw new ForbiddenException(e.message);
+          }),
+        ),
+    );
+    return data;
   }
 
+  // Buscar movie por IMDBId
+  async findOneByIMDBId(id: number) {
+    const movie = await this.movieModel.findOne({ movieIMDBId: id }).exec();
+    if (!movie) {
+      return null;
+    }
+    return movie;
+  }
+  // *****************************************************
   // Buscar movie por id
   async findOne(id: string) {
     const movie = await this.movieModel.findById(id).exec();
@@ -95,6 +114,12 @@ export class MoviesService {
     }
     return movie;
   }
+
+  // Listar todas las movies
+  findAll() {
+    return this.movieModel.find().exec();
+  }
+
   // Crear una movie
   create(data: CreateMovieDto) {
     const newMovie = new this.movieModel(data);

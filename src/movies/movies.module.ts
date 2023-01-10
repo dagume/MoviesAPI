@@ -25,5 +25,6 @@ import { Movie, MovieSchema } from './entities/movie.entity';
   controllers: [MoviesController],
   // Servicios
   providers: [MoviesService],
+  exports: [MoviesService],
 })
 export class MoviesModule {}

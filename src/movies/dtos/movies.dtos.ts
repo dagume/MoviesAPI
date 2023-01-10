@@ -4,6 +4,7 @@ import {
   IsOptional,
   Max,
   IsPositive,
+  IsNumber,
 } from 'class-validator';
 import { ApiProperty, PartialType } from '@nestjs/swagger';
 
@@ -37,6 +38,36 @@ export class CreateMovieDto {
   @IsNotEmpty()
   @ApiProperty()
   readonly overview: string;
+
+  @IsString()
+  @IsNotEmpty()
+  @ApiProperty()
+  readonly popularity: string;
+
+  @IsString()
+  @IsNotEmpty()
+  @ApiProperty()
+  readonly posterPath: string;
+
+  @IsString()
+  @IsNotEmpty()
+  @ApiProperty()
+  readonly releaseDate: string;
+
+  @IsString()
+  @IsNotEmpty()
+  @ApiProperty()
+  readonly video: boolean;
+
+  @IsNumber()
+  @IsNotEmpty()
+  @ApiProperty()
+  readonly voteAverage: number;
+
+  @IsNumber()
+  @IsNotEmpty()
+  @ApiProperty()
+  readonly voteCount: number;
 }
 
 export class UpdateMovieDto extends PartialType(CreateMovieDto) {}

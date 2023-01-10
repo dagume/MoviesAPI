@@ -6,8 +6,6 @@ export class Movie extends Document {
   @Prop()
   id: string;
   @Prop({ required: true })
-  poster_path: string;
-  @Prop({ required: true })
   movieIMDBId: string;
   @Prop({ required: true })
   languaje: string;
@@ -17,8 +15,20 @@ export class Movie extends Document {
   originalLanguage: string;
   @Prop({ required: true })
   title: string;
-  @Prop({ required: true })
+  @Prop({ required: false })
   overview: string;
+  @Prop({ required: true })
+  popularity: string;
+  @Prop({ required: true })
+  posterPath: string;
+  @Prop({ required: true })
+  releaseDate: string;
+  @Prop({ required: true })
+  video: boolean;
+  @Prop({ required: true })
+  voteAverage: number;
+  @Prop({ required: true })
+  voteCount: number;
 }
 
 export const MovieSchema = SchemaFactory.createForClass(Movie);
