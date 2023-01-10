@@ -8,6 +8,7 @@ import { enviroments } from './enviroments';
 import { DatabaseModule } from './database/database.module';
 import { MoviesModule } from './movies/movies.module';
 import { UsersModule } from './users/users.module';
+import { AuthModule } from './auth/auth.module';
 import config from './config';
 
 @Module({
@@ -19,6 +20,7 @@ import config from './config';
       isGlobal: true, //Modulo de configuracion global
       validationSchema: Joi.object({
         API_KEY: Joi.string().required(),
+        URL_API: Joi.string().required(),
         MONGO_INITDB_ROOT_USERNAME: Joi.string().required(),
         MONGO_INITDB_ROOT_PASSWORD: Joi.string().required(),
         MONGO_DB: Joi.string().required(),
@@ -30,6 +32,7 @@ import config from './config';
     DatabaseModule, //Base de datos
     MoviesModule, // Peliculas
     UsersModule, //usuarios
+    AuthModule,
   ],
   // controladores
   controllers: [AppController],
