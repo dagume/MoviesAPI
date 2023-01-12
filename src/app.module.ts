@@ -21,6 +21,7 @@ import config from './config';
       validationSchema: Joi.object({
         API_KEY: Joi.string().required(),
         URL_API: Joi.string().required(),
+        JWT_SECRET: Joi.string().required(),
         MONGO_INITDB_ROOT_USERNAME: Joi.string().required(),
         MONGO_INITDB_ROOT_PASSWORD: Joi.string().required(),
         MONGO_DB: Joi.string().required(),

@@ -6,6 +6,6 @@ export class AppService {
   constructor(@Inject('MONGO') private database: Db) {}
 
   getHello(): string {
-    return 'Hello World!';
+    return 'Technical test Empowerment Labs API 🧑🏽‍💻  V0.0.1';
   }
 }

@@ -3,7 +3,7 @@ import {
   ExecutionContext,
   Injectable,
   UnauthorizedException,
-  Inject
+  Inject,
 } from '@nestjs/common';
 
 import { Reflector } from '@nestjs/core';
@@ -17,7 +17,7 @@ import { IS_PUBLIC_KEY } from '../../auth/decorators/public.decorator';
 export class ApikeyGuard implements CanActivate {
   constructor(
     private reflector: Reflector,
-    @Inject(config.KEY) private configService: ConfigType<typeof config>
+    @Inject(config.KEY) private configService: ConfigType<typeof config>,
   ) {}
 
   canActivate(

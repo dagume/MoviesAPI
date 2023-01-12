@@ -4,6 +4,7 @@ export default registerAs('config', () => {
   return {
     apikey: process.env.API_KEY,
     urlApi: process.env.URL_API,
+    jwt_secret: process.env.JWT_SECRET,
 
     mongo: {
       username: process.env.MONGO_INITDB_ROOT_USERNAME,

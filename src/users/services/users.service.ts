@@ -1,5 +1,4 @@
-import { Injectable, Inject } from '@nestjs/common';
-import { Db } from 'mongodb';
+import { Injectable } from '@nestjs/common';
 import { Model } from 'mongoose';
 import { InjectModel } from '@nestjs/mongoose';
 import * as bcrypt from 'bcrypt';
@@ -12,10 +11,10 @@ import { AddFavoriteMovieDto, CreateUserDto } from '../dtos/user.dto';
 export class UsersService {
   constructor(
     private moviesService: MoviesService,
-    @Inject('MONGO') private databaseMongo: Db,
     @InjectModel(User.name) private userModel: Model<User>,
   ) {}
 
+  // Usuario y sus peliculas favoritas
   findAll() {
     return this.userModel.find().populate('favoriteMovies').exec();
   }
@@ -60,10 +59,12 @@ export class UsersService {
     return user.save();
   }
 
+  // Buscar por id
   async findOne(id: string) {
     return this.userModel.findById(id);
   }
 
+  // Crear usuario
   async create(data: CreateUserDto) {
     const newModel = new this.userModel(data);
     const hashPassword = await bcrypt.hash(newModel.password, 10);
@@ -73,6 +74,7 @@ export class UsersService {
     return rta;
   }
 
+  // Buscar usuario por email
   findByEmail(email: string) {
     return this.userModel.findOne({ email }).exec();
   }

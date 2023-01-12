@@ -11,7 +11,7 @@ import { ApiProperty, PartialType } from '@nestjs/swagger';
 export class CreateMovieDto {
   @IsString()
   @IsNotEmpty()
-  @ApiProperty()
+  @ApiProperty({ description: 'Id in API' })
   readonly movieIMDBId: string;
 
   @IsString()
@@ -82,9 +82,11 @@ export class FilterMovieDto {
 export class FilterMovieSearchDto {
   @IsString()
   @IsNotEmpty()
+  @ApiProperty()
   title: string;
 
   @IsString()
   @IsOptional()
+  @ApiProperty()
   language: string;
 }

@@ -13,7 +13,6 @@ import { HttpService } from '@nestjs/axios';
 import { Movie } from '../entities/movie.entity';
 import {
   CreateMovieDto,
-  UpdateMovieDto,
   FilterMovieDto,
   FilterMovieSearchDto,
 } from '../dtos/movies.dtos';
@@ -105,42 +104,10 @@ export class MoviesService {
     }
     return movie;
   }
-  // *****************************************************
-  // Buscar movie por id
-  async findOne(id: string) {
-    const movie = await this.movieModel.findById(id).exec();
-    if (!movie) {
-      throw new NotFoundException(`Movie with id: ${id} not found`);
-    }
-    return movie;
-  }
-
-  // Listar todas las movies
-  findAll() {
-    return this.movieModel.find().exec();
-  }
 
   // Crear una movie
   create(data: CreateMovieDto) {
     const newMovie = new this.movieModel(data);
     return newMovie.save();
-  }
-  //Actualizar movie
-  update(id: string, changes: UpdateMovieDto) {
-    const movie = this.movieModel
-      .findByIdAndUpdate(id, { $set: changes }, { new: true })
-      .exec();
-    if (!movie) {
-      throw new NotFoundException(`Movie with id: ${id} not found`);
-    }
-    return movie;
-  }
-  // Eliminar movie
-  remove(id: string) {
-    const movie = this.movieModel.findByIdAndDelete(id);
-    if (!movie) {
-      throw new NotFoundException(`Movie with id: ${id} not found`);
-    }
-    return movie;
   }
 }
