@@ -15,7 +15,6 @@ export class CreateUserDto {
   @ApiProperty({ description: 'the user name' })
   readonly name: string;
 
-  @IsString()
   @IsEmail()
   @IsNotEmpty()
   @ApiProperty({ description: "the user' email" })
@@ -36,8 +35,4 @@ export class AddFavoriteMovieDto {
   @IsNumber()
   @IsNotEmpty()
   readonly movie_id: number;
-
-  @IsMongoId()
-  @IsNotEmpty()
-  readonly user_id: string;
 }

@@ -1,16 +1,18 @@
-import { Body, Controller, Get, Post, UseGuards } from '@nestjs/common';
+import { Body, Controller, Get, Post, Req, UseGuards } from '@nestjs/common';
 import {
-  ApiCreatedResponse,
   ApiForbiddenResponse,
   ApiOperation,
   ApiTags,
   ApiUnprocessableEntityResponse,
 } from '@nestjs/swagger';
+
+import { Request } from 'express';
+
 import { AddFavoriteMovieDto, CreateUserDto } from '../dtos/user.dto';
 import { UsersService } from '../services/users.service';
-
 import { JwtAuthGuard } from '../../auth/guards/jwt-auth.guard';
 import { Public } from 'src/auth/decorators/public.decorator';
+import { PayloadToken } from 'src/auth/models/token.model';
 
 @ApiTags('Users')
 @UseGuards(JwtAuthGuard)
@@ -32,8 +34,9 @@ export class UsersController {
     summary: 'Add favorite movie',
   })
   @ApiForbiddenResponse({ description: 'Unauthorized' })
-  addFavoriteMovies(@Body() payload: AddFavoriteMovieDto) {
-    return this.usersService.favoriteMovies(payload);
+  addFavoriteMovies(@Req() req: Request, @Body() payload: AddFavoriteMovieDto) {
+    const user = req.user as PayloadToken;
+    return this.usersService.favoriteMovies(user.sub, payload);
   }
 
   @Post()

@@ -14,6 +14,9 @@ async function bootstrap() {
       },
     }),
   );
+
+  app.enableCors();
+
   const config = new DocumentBuilder()
     .setTitle('Movies API')
     .setDescription('Technical test Empowerment Labs')
@@ -22,6 +25,6 @@ async function bootstrap() {
   const document = SwaggerModule.createDocument(app, config);
   SwaggerModule.setup('docs', app, document);
   app.useGlobalPipes(new ValidationPipe());
-  await app.listen(3000);
+  await app.listen(process.env.PORT || 3000);
 }
 bootstrap();

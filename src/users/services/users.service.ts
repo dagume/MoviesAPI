@@ -19,9 +19,8 @@ export class UsersService {
     return this.userModel.find().populate('favoriteMovies').exec();
   }
 
-  async favoriteMovies(data: AddFavoriteMovieDto) {
-    const { movie_id, user_id } = data;
-
+  async favoriteMovies(user_id, data: AddFavoriteMovieDto) {
+    const { movie_id } = data;
     // validar que la pelicula no este registrada en mongo
     const movieDb = await this.moviesService.findOneByIMDBId(movie_id);
 
