@@ -10,10 +10,9 @@ import config from '../config';
   imports: [
     MongooseModule.forRootAsync({
       useFactory: async (configService: ConfigType<typeof config>) => {
-        const { driver, username, password, db, port, host } =
-          configService.mongo;
+        const { driver, username, password, db, host } = configService.mongo;
         return {
-          uri: `${driver}://${host}:${port}`,
+          uri: `${driver}://${host}`,
           user: username,
           pass: password,
           dbName: db,
@@ -26,9 +25,8 @@ import config from '../config';
     {
       provide: 'MONGO',
       useFactory: async (configService: ConfigType<typeof config>) => {
-        const { driver, username, password, db, port, host } =
-          configService.mongo;
-        const uri = `${driver}://${username}:${password}@${host}:${port}/?authMechanism=DEFAULT`;
+        const { driver, username, password, db, host } = configService.mongo;
+        const uri = `${driver}://${username}:${password}@${host}/?authMechanism=DEFAULT`;
         const client = new MongoClient(uri);
         await client.connect();
         const database = client.db(db);
